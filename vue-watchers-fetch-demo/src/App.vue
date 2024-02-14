@@ -1,25 +1,16 @@
-<script setup></script>
-
 <template>
-  <header>
-    <h1 class="logo">Vue Watchers Fetch Demo</h1>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="app">
+    <GithubUserRepos></GithubUserRepos>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
+import GithubUserRepos from "./components/GithubUserRepos.vue";
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-}
-</style>
+export default {
+  name: "App",
+  components: {
+    GithubUserRepos,
+  },
+};
+</script>
