@@ -12,10 +12,20 @@ export default {
       latestCommits: [],
     };
   },
+  props: {
+    initialUsername: {
+      type: String,
+      default: "",
+    },
+  },
   //   lifecycle hook
   mounted() {
     // automatically focus on the input when the component is mounted
     this.$refs.usernameInput.focus();
+    if (this.initialUsername) {
+      this.username = this.initialUsername;
+      this.fetchRepos();
+    }
   },
   watch: {
     async selectedBranch(newBranch) {
