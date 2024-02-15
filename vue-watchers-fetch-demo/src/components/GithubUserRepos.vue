@@ -29,7 +29,7 @@ export default {
     <div v-if="repos.length > 0">
       <h3>Repositories</h3>
       <ul>
-        <li v-for="repo in repos" :key="repo.id" @click="selectRepo(repo.name)">
+        <li v-for="repo in repos" :key="repo.id">
           {{ repo.name }}
         </li>
       </ul>
