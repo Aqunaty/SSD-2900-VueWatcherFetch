@@ -11,4 +11,9 @@ export default {
       (res) => res.json()
     );
   },
+  getRepoLatestCommit(username, repoName, branch) {
+    return fetch(
+      `${API_BASE_URL}/repos/${username}/${repoName}/commits?sha=${branch}`
+    ).then((res) => res.json());
+  },
 };

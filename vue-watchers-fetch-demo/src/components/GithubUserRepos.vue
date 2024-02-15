@@ -9,7 +9,15 @@ export default {
       selectedRepo: "",
       branches: [],
       selectedBranch: "",
+      latestCommits: [],
     };
+  },
+  watch: {
+    async selectedBranch(newBranch) {
+      if (newBranch) {
+        await this.fetchLatestCommits(this.selectedRepo, newBranch);
+      }
+    },
   },
   methods: {
     async fetchRepos() {
@@ -28,6 +36,15 @@ export default {
         this.selectedBranch = "";
         this.latestCommits = []; // Reset commits if no branches
       }
+    },
+    async fetchLatestCommits(repoName, branch) {
+      this.latestCommits = await GithubService.getRepoLatestCommit(
+        this.username,
+        repoName,
+        branch
+      );
+      this.latestCommits = this.latestCommits.slice(0, 5); // Get the most recent 5 commits
+      console.log(this.latestCommits);
     },
   },
 };
@@ -65,6 +82,18 @@ export default {
           </option>
         </select>
       </div>
+    </div>
+    <div v-if="latestCommits.length > 0">
+      <h3>Latest Commits</h3>
+      <ul>
+        <li v-for="(commit, index) in latestCommits" :key="index">
+          <h4>
+            {{ commit.commit.author.name }}
+            {{ new Date(commit.commit.author.date).toLocaleString() }}
+          </h4>
+          - {{ commit.commit.message }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
