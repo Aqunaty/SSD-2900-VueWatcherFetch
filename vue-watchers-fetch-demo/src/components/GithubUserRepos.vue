@@ -12,6 +12,11 @@ export default {
       latestCommits: [],
     };
   },
+  //   lifecycle hook
+  mounted() {
+    // automatically focus on the input when the component is mounted
+    this.$refs.usernameInput.focus();
+  },
   watch: {
     async selectedBranch(newBranch) {
       if (newBranch) {
@@ -21,8 +26,18 @@ export default {
   },
   methods: {
     async fetchRepos() {
-      console.log("fetchRepos");
       this.repos = await GithubService.getUserRepos(this.username);
+      //   reset branches, commits, and selected branch when fetching new repos
+      this.selectedRepo = "";
+      this.branches = [];
+      this.selectedBranch = "";
+      this.latestCommits = [];
+      //   reset and refocus on the input
+      this.username = "";
+      //   this.$nextTick() is a Vue method that waits for the next DOM update cycle
+      this.$nextTick(() => {
+        this.$refs.usernameInput.focus();
+      });
     },
     async selectRepo(repoName) {
       this.selectedRepo = repoName;
@@ -55,6 +70,7 @@ export default {
     <header><h1>Repo Browser</h1></header>
     <input
       v-model="username"
+      ref="usernameInput"
       @keyup.enter="fetchRepos"
       placeholder="GitHub Username"
     />
