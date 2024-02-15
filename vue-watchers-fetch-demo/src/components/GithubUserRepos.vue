@@ -21,6 +21,9 @@ export default {
     async selectedBranch(newBranch) {
       if (newBranch) {
         await this.fetchLatestCommits(this.selectedRepo, newBranch);
+        this.$nextTick(() => {
+          this.$refs.branchSelect.scrollIntoView({ behavior: "smooth" });
+        });
       }
     },
   },
@@ -32,8 +35,6 @@ export default {
       this.branches = [];
       this.selectedBranch = "";
       this.latestCommits = [];
-      //   reset and refocus on the input
-      this.username = "";
       //   this.$nextTick() is a Vue method that waits for the next DOM update cycle
       this.$nextTick(() => {
         this.$refs.usernameInput.focus();
@@ -52,13 +53,13 @@ export default {
         this.latestCommits = []; // Reset commits if no branches
       }
     },
-    async fetchLatestCommits(repoName, branch) {
+    async fetchLatestCommits(repoName, branch, count = 25) {
       this.latestCommits = await GithubService.getRepoLatestCommit(
         this.username,
         repoName,
         branch
       );
-      this.latestCommits = this.latestCommits.slice(0, 5); // Get the most recent 5 commits
+      this.latestCommits = this.latestCommits.slice(0, count); // Get the most recent 5 commits
       console.log(this.latestCommits);
     },
   },
@@ -88,7 +89,7 @@ export default {
       <h3>{{ selectedRepo }}</h3>
       <div v-if="branches.length > 0">
         <h3>Branches</h3>
-        <select v-model="selectedBranch">
+        <select v-model="selectedBranch" ref="branchSelect">
           <option
             v-for="branch in branches"
             :key="branch.name"
