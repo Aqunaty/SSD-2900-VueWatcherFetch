@@ -6,4 +6,9 @@ export default {
       res.json()
     );
   },
+  getRepoBranches(username, repoName) {
+    return fetch(`${API_BASE_URL}/repos/${username}/${repoName}/branches`).then(
+      (res) => res.json()
+    );
+  },
 };
