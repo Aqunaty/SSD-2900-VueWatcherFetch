@@ -8,7 +8,6 @@ export default {
       repos: [],
       selectedRepo: "",
       branches: [],
-      selectedBranch: "",
     };
   },
   methods: {
@@ -22,12 +21,6 @@ export default {
         this.username,
         repoName
       );
-      if (this.branches.length) {
-        this.selectedBranch = this.branches[0].name; // Automatically select the first branch
-      } else {
-        this.selectedBranch = "";
-        this.latestCommits = []; // Reset commits if no branches
-      }
     },
   },
 };
@@ -51,11 +44,9 @@ export default {
       </ul>
     </div>
     <div v-if="selectedRepo">
-      <h2>Selected Repo</h2>
-      <h3>{{ selectedRepo }}</h3>
+      <h2>{{ selectedRepo }} - Branches</h2>
       <div v-if="branches.length > 0">
-        <h3>Branches</h3>
-        <select v-model="selectedBranch">
+        <select>
           <option
             v-for="branch in branches"
             :key="branch.name"
@@ -79,6 +70,10 @@ header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
+  }
+  h2 {
+    margin-top: 1.6rem;
+    font-weight: 700;
   }
 }
 </style>
