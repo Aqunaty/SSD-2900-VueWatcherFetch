@@ -23,6 +23,8 @@ export default {
         await this.fetchLatestCommits(this.selectedRepo, newBranch);
         this.$nextTick(() => {
           this.$refs.branchSelect.scrollIntoView({ behavior: "smooth" });
+          // scrollIntoView is a DOM method that scrolls the element into view
+          // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
         });
       }
     },
