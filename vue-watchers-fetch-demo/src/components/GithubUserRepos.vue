@@ -13,6 +13,9 @@ export default {
     };
   },
   watch: {
+    // fetch commits when a new branch is selected
+    // This is a watcher for the selectedBranch property
+    // newBranch is the new value of the selectedBranch and it is populated by Vue
     async selectedBranch(newBranch) {
       if (newBranch) {
         await this.fetchLatestCommits(this.selectedRepo, newBranch);
