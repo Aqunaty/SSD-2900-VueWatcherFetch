@@ -6,7 +6,6 @@ export default {
     return {
       username: "",
       repos: [],
-      selectedRepo: "",
     };
   },
   methods: {
