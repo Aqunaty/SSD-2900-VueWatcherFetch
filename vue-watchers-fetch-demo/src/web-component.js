@@ -1,4 +1,4 @@
-import { createApp, defineCustomElement } from "vue";
+import { defineCustomElement } from "vue";
 import GithubUserRepos from "./components/GithubUserRepos.vue";
 
 const GithubUserReposElement = defineCustomElement({
