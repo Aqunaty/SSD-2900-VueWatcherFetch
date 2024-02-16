@@ -15,7 +15,8 @@ export default {
   //   lifecycle hook
   mounted() {
     // automatically focus on the input when the component is mounted
-    this.$refs.usernameInput.focus();
+    // this.$refs.usernameInput.focus(); // this is the Vue2 way
+    usernameInput.focus();
   },
   watch: {
     async selectedBranch(newBranch) {
